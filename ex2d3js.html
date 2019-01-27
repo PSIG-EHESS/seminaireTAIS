@@ -81,11 +81,11 @@
                           .scale(14000)
                           .translate([width / 1.5, height / 1.74]);
     
-    // create a path to draw the neighborhoods
+    // create a path to draw the departments
     var path = d3.geo.path()
                      .projection(projection);
 
-    // create and append the map of SF neighborhoods
+    // create and append the map of SF departments
     var map = d3.select('#map').selectAll('path')
                  .data(data[0].features)
                  .enter()
@@ -95,15 +95,15 @@
                  .style('stroke', 'black')
                  .style('stroke-width', 1);
 
-    // add the neighborhood name as its class
+    // add the department name as its class
     map.attr('class', function(d) {
                     return d.properties.nom;
                  });
 
-      // find the min/max of listing per neighborhood
+      // find the min/max of listing per department
       var listings_extent = d3.extent(d3.values(data[1]));
 
-      // append a bubble to each neighborhood
+      // append a bubble to each department
       var bubbles = d3.select('#map').append("g")
              .attr("class", "bubble")
              .selectAll("circle")
@@ -112,7 +112,7 @@
              .append("circle")
              .attr('class', 'airbnb');
 
-      // add the listing data to each neighborhood datum
+      // add the listing data to each department datum
       bubbles.datum(function(d) {
         d.count = data[1][d.properties.nom];
         return d;
@@ -130,7 +130,7 @@
          .attr("r", function(d) { return radius(d.count); });
 
         
-        // initialize the Mission as the default neighborhood
+        // title of chart: name of the department
         var field = "Departement";
 
         // maximum reviews
@@ -169,7 +169,7 @@
               .text("Indicateur")
               .attr("transform", "translate(45,215) rotate(90)");
 
-        // create a function to draw the timeseries for each neighborhood
+        // create a function to draw the timeseries for each department
         var drawChart = function(field) {
           // remove the previous chart
           d3.select('#chart').select('.x.axis').remove();
@@ -226,7 +226,7 @@
 
         drawChart(field);
 
-        // create a callback for the neighborhood hover
+        // create a callback for the department hover
         var mover = function(d) {
           var neigh = d.properties.nom;
           d3.select('#map path.' + neigh).style('fill', 'black');
@@ -234,13 +234,13 @@
           drawChart(neigh);
         };
 
-        // create a callback for the neighborhood hover
+        // create a callback for the department hover
         var mout = function(d) {
           var neigh = d.properties.nom;
           d3.select('path.' + neigh).style('fill', '#eee');
         }
 
-        // attach events to neighborhoods in map
+        // attach events to departments in map
         map.on("mouseover", mover);
         map.on("mouseout", mout);
 
