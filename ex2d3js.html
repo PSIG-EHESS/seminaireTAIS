@@ -131,7 +131,7 @@
 
         
         // initialize the Mission as the default neighborhood
-        var field = "Mission";
+        var field = "Departement";
 
         // maximum reviews
         var max_y = d3.max(data[2], function(d) {
@@ -166,7 +166,7 @@
         d3.select(".y.axis")
               .append("text")
               .attr('class', 'label')
-              .text("Reviews per week")
+              .text("Indicateur")
               .attr("transform", "translate(45,215) rotate(90)");
 
         // create a function to draw the timeseries for each neighborhood
